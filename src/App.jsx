@@ -1,17 +1,26 @@
 import { useState } from "react";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppLayout from "./ui/AppLayout";
+import Home from "./pages/Home";
+import AppTranslator from "./pages/AppTranslator";
+const router =
+  createBrowserRouter[
+    {
+      element: <AppLayout />,
+      children: [
+        {
+          path: "/",
+          element: <Home />,
+        },
+        {
+          path: "/app",
+          element: <AppTranslator />,
+        },
+      ],
+    }
+  ];
 function App() {
-  const [count, setCount] = useState(0);
-
-  const a = 2;
-
-  return (
-    <>
-      <h1>{count - 22}</h1>
-
-      <h2 className="text-clip text-2xl text-red-700">s sssdd</h2>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
