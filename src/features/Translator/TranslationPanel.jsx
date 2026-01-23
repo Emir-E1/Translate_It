@@ -1,26 +1,42 @@
 import { useState } from "react";
+import { useTranslator } from "../../context/TranslatorContext";
+import TranslateActions from "./TranslateActions";
+import Panel from "../../ui/Panel";
+import LanguageSelector from "./LanguageSelector";
 
-import getTranslation from "./../../services/handleTranslation";
-function InputPanel() {
+function TranslationPanel({ type }) {
+  const { translation } = useTranslator();
   const [input, setInput] = useState("");
-  const [translation, setTranslation] = useState("");
-  async function handleTranslate() {
-    const result = await getTranslation(input, "en", "fr");
-    console.log(result.translatedText);
-    //setTranslation(result);
-  }
-  //https://mymemory.translated.net/doc/spec.php
-  //  https://api.mymemory.translated.net/get?q=Hello World!&langpair=en|it
-  //  https://api.mymemory.translated.net/get?q={INPUT}!&langpair={CURRENT}|{TARGET}
+  const [sourceLang, setSourceLang] = useState("en");
+  const [targetLang, setTargetLang] = useState("fr");
+
   return (
-    <div>
-      <div>
-        <input value={input} onChange={(e) => setInput(e.target.value)} />
-        <button onClick={handleTranslate}>Translate it</button>
-      </div>
-      <div>{translation}</div>
+    <div className="my-2">
+      {type === "source" ? (
+        <div>
+          <Panel>
+            <LanguageSelector type={"source"} />
+            <textarea
+              className="h-32 w-full resize-none rounded-lg border-none bg-transparent p-4 text-white placeholder-gray-400 outline-none"
+              placeholder="Tapez votre texte à traduire ici..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <TranslateActions input={input} />
+          </Panel>
+        </div>
+      ) : (
+        <div>
+          <Panel>
+            <LanguageSelector type={"target"} />
+            <div className="h-32 w-full p-4 text-white">
+              {translation || "La traduction apparaîtra ici..."}
+            </div>
+          </Panel>
+        </div>
+      )}
     </div>
   );
 }
 
-export default InputPanel;
+export default TranslationPanel;
