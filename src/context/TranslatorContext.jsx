@@ -4,11 +4,11 @@ import getTranslation from "../services/handleTranslation";
 const TranslatorContext = createContext();
 
 function TranslateProvider({ children }) {
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState("Hello How Are You ?");
   const [translation, setTranslation] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("en");
   const [targetLanguage, setTargetLanguage] = useState("fr");
-  const [myLanguages, setMyLanguages] = useState([]);
+  const [myLanguages, setMyLanguages] = useState(["en", "fr"]);
   async function handleTranslate(input) {
     if (!input) {
       setTranslation("");

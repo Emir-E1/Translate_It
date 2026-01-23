@@ -1,5 +1,5 @@
 function Backgrounds({ children }) {
-  return <div>{children}</div>;
+  return <div className="h-full w-full bg-[url('/29188.jpg')]">{children}</div>;
 }
 
 export default Backgrounds;

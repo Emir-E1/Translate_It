@@ -6,10 +6,13 @@ const pairsLanguages = [
   { code: "es", name: "Spanish" },
   { code: "ru", name: "Russian" },
 ];
-function LanguageSelector({ type }) {
-  const { myLanguages, handleMyLanguages, handleLanguage } = useTranslator();
+const getLanguageName = (code) =>
+  pairsLanguages.find((l) => l.code === code)?.name ?? code;
+
+function LanguageSelector() {
+  const { myLanguages, handleMyLanguages } = useTranslator();
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex w-full flex-wrap items-center gap-3">
       <select
         className="rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white transition-colors duration-200 hover:border-gray-500 focus:border-blue-500 focus:outline-none"
         onChange={(e) => handleMyLanguages(e.target.value)}
@@ -24,15 +27,14 @@ function LanguageSelector({ type }) {
           </option>
         ))}
       </select>
-      <div className="flex gap-2">
-        {myLanguages.map((lang, index) => (
-          <div
-            key={index}
-            className="rounded-full bg-blue-600 px-3 py-1 text-sm font-medium text-white"
-            onClick={() => handleLanguage(type, lang)}
+      <div className="flex flex-wrap items-center gap-2">
+        {myLanguages.map((code) => (
+          <span
+            key={code}
+            className="rounded-full bg-gray-600 px-3 py-1 text-sm font-medium text-white"
           >
-            {lang}
-          </div>
+            {getLanguageName(code)}
+          </span>
         ))}
       </div>
     </div>
