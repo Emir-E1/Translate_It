@@ -1,42 +1,53 @@
+import { useState } from "react";
 import { useTranslator } from "../../context/TranslatorContext";
 
-const pairsLanguages = [
-  { code: "en", name: "English" },
-  { code: "fr", name: "French" },
-  { code: "es", name: "Spanish" },
-  { code: "ru", name: "Russian" },
-];
-const getLanguageName = (code) =>
-  pairsLanguages.find((l) => l.code === code)?.name ?? code;
+function LanguageSelector({ resolveLanguages, role }) {
+  const { pairsLanguages, currentLanguage, targetLanguage } = useTranslator();
+  const [myLanguages] = useState([currentLanguage, targetLanguage]);
+  const [isSelected, setIsSelected] = useState(
+    role === "source" ? currentLanguage : targetLanguage,
+  );
 
-function LanguageSelector() {
-  const { myLanguages, handleMyLanguages } = useTranslator();
+  function handleResolve(code) {
+    resolveLanguages(code);
+    setIsSelected(code);
+  }
+
   return (
     <div className="flex w-full flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center gap-2">
+        {myLanguages?.map((code) => {
+          const lang = pairsLanguages.find((l) => l.code === code);
+          const selected = isSelected === code;
+
+          return (
+            <button
+              key={code}
+              type="button"
+              className={`rounded-full px-3 py-1.5 text-sm font-medium transition-all duration-200 ${
+                selected
+                  ? "bg-cyan-600 text-white shadow-md shadow-cyan-600/25"
+                  : "bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white"
+              }`}
+              onClick={() => handleResolve(code)}
+            >
+              {lang?.name}
+            </button>
+          );
+        })}
+      </div>
+
       <select
-        className="rounded-lg border border-gray-600 bg-gray-700 px-3 py-2 text-white transition-colors duration-200 hover:border-gray-500 focus:border-blue-500 focus:outline-none"
-        onChange={(e) => handleMyLanguages(e.target.value)}
+        className="rounded-lg bg-gray-800 px-3 py-2 text-sm text-white outline-none transition focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20"
+        onChange={(e) => handleResolve(e.target.value)}
+        value={role === "source" ? currentLanguage : targetLanguage}
       >
         {pairsLanguages.map((el) => (
-          <option
-            value={el.code}
-            key={el.code}
-            className="bg-gray-800 text-white"
-          >
+          <option key={el.code} value={el.code}>
             {el.name}
           </option>
         ))}
       </select>
-      <div className="flex flex-wrap items-center gap-2">
-        {myLanguages.map((code) => (
-          <span
-            key={code}
-            className="rounded-full bg-gray-600 px-3 py-1 text-sm font-medium text-white"
-          >
-            {getLanguageName(code)}
-          </span>
-        ))}
-      </div>
     </div>
   );
 }

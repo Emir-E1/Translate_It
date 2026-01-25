@@ -1,53 +1,51 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import getTranslation from "../services/handleTranslation";
 
 const TranslatorContext = createContext();
 
 function TranslateProvider({ children }) {
-  const [input, setInput] = useState("Hello How Are You ?");
+  const [input, setInput] = useState("Hello");
   const [translation, setTranslation] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("en");
   const [targetLanguage, setTargetLanguage] = useState("fr");
-  const [myLanguages, setMyLanguages] = useState(["en", "fr"]);
-  async function handleTranslate(input) {
-    if (!input) {
+
+  const pairsLanguages = [
+    { code: "en", name: "English" },
+    { code: "fr", name: "French" },
+    { code: "es", name: "Spanish" },
+    { code: "ru", name: "Russian" },
+    { code: "it", name: "Italian" },
+  ];
+
+  useEffect(() => {
+    if (!input || input === "") {
       setTranslation("");
+      return;
     }
-    setInput(input);
-    const result = await getTranslation(input, currentLanguage, targetLanguage);
-    console.log(result);
-    setTranslation(result);
-  }
 
-  function handleMyLanguages(lng) {
-    if (myLanguages.length <= 2) {
-      setMyLanguages((prev) => (prev.includes(lng) ? prev : [...prev, lng]));
-    } else {
-      setMyLanguages((prev) =>
-        prev.includes(lng)
-          ? prev
-          : [...prev.filter((_, index) => index !== 0), lng],
+    async function translate() {
+      const result = await getTranslation(
+        input,
+        currentLanguage,
+        targetLanguage,
       );
+      setTranslation(result);
     }
-  }
 
-  function handleLanguage(type, language) {
-    if (type === "source") {
-      setCurrentLanguage(language);
-    }
-    setTargetLanguage(language);
-  }
+    translate();
+  }, [input, currentLanguage, targetLanguage]);
 
   return (
     <TranslatorContext.Provider
       value={{
         input,
-        translation,
-        handleTranslate,
-        handleLanguage,
-        myLanguages,
-        handleMyLanguages,
         setInput,
+        translation,
+        currentLanguage,
+        targetLanguage,
+        setCurrentLanguage,
+        setTargetLanguage,
+        pairsLanguages,
       }}
     >
       {children}
@@ -56,7 +54,7 @@ function TranslateProvider({ children }) {
 }
 
 export function useTranslator() {
-  const context = useContext(TranslatorContext);
-  return context;
+  return useContext(TranslatorContext);
 }
+
 export default TranslateProvider;

@@ -4,7 +4,7 @@ export default async function getTranslation(
   currentLanguage,
   targetLanguage,
 ) {
-  if (!input) return;
+  if (!input || input === "") return;
   //  https://api.mymemory.translated.net/get?q={INPUT}!&langpair={CURRENT}|{TARGET}
   try {
     const res = await fetch(
@@ -16,12 +16,5 @@ export default async function getTranslation(
     console.log(error);
   }
 }
-
-//pairs
-const pairsLanguages = [
-  { code: "en", name: "English" },
-  { code: "fr", name: "French" },
-  { code: "es", name: "Spanish" },
-];
 
 //https://api.mymemory.translated.net/get?q=hi!&langpair=en|fr

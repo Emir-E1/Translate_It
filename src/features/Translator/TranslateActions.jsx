@@ -1,17 +1,21 @@
 import { useTranslator } from "../../context/TranslatorContext";
-
+/*
 function TranslateActions({ input }) {
   const { handleTranslate } = useTranslator();
   return (
-    <div>
-      <button
-        className="cursor-pointer rounded-full bg-blue-600 px-3 py-2 font-mono font-semibold text-white transition-colors duration-200 hover:bg-blue-700"
-        onClick={() => handleTranslate(input)}
-      >
-        Translate it
-      </button>
+    <div className="pt-1">
+      {input && (
+        <button
+          type="button"
+          className="rounded-xl bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-600/25 transition-all duration-200 hover:bg-cyan-500 hover:shadow-cyan-500/30 active:scale-[0.98]"
+          onClick={handleTranslate}
+        >
+          Translate it
+        </button>
+      )}
     </div>
   );
 }
 
 export default TranslateActions;
+*/
