@@ -6,8 +6,14 @@ const TranslatorContext = createContext();
 function TranslateProvider({ children }) {
   const [input, setInput] = useState("Hello");
   const [translation, setTranslation] = useState("");
-  const [currentLanguage, setCurrentLanguage] = useState("en");
-  const [targetLanguage, setTargetLanguage] = useState("fr");
+  const [currentLanguage, setCurrentLanguage] = useState({
+    name: "english",
+    code: "en",
+  });
+  const [targetLanguage, setTargetLanguage] = useState({
+    name: "french",
+    code: "fr",
+  });
   const [isSwitching, setIsSwitching] = useState(false);
 
   const pairsLanguages = [

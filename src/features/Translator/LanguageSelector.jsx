@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslator } from "../../context/TranslatorContext";
 
 function LanguageSelector({ resolveLanguages, role }) {

@@ -8,7 +8,7 @@ export default async function getTranslation(
   //  https://api.mymemory.translated.net/get?q={INPUT}!&langpair={CURRENT}|{TARGET}
   try {
     const res = await fetch(
-      `https://api.mymemory.translated.net/get?q=${input}!&langpair=${currentLanguage}|${targetLanguage}`,
+      `https://api.mymemory.translated.net/get?q=${input}!&langpair=${currentLanguage.code}|${targetLanguage.code}`,
     );
     const { responseData } = await res.json();
     return responseData.translatedText;

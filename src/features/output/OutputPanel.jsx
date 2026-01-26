@@ -1,17 +1,21 @@
 import { useTranslator } from "../../context/TranslatorContext";
 import Panel from "../../ui/Panel";
 import LanguageSelector from "../Translator/LanguageSelector";
+import Nls from "../Translator/Nls";
 import SwitchButton from "./SwitchButton";
 
 function OutputPanel() {
-  const { translation, setTargetLanguage } = useTranslator();
+  const { translation, setTargetLanguage, targetLanguage } = useTranslator();
   const isEmpty = translation == null || translation === "";
 
   return (
     <Panel>
       <div className="alingit flex flex-row">
         <SwitchButton />
-        <LanguageSelector role="target" resolveLanguages={setTargetLanguage} />
+        <Nls
+          resolveLanguages={setTargetLanguage}
+          managedLanguage={targetLanguage}
+        />
       </div>
       <div
         className={`min-h-[7.5rem] flex-1 rounded-xl border p-4 ${
