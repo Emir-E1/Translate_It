@@ -8,6 +8,7 @@ function TranslateProvider({ children }) {
   const [translation, setTranslation] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("en");
   const [targetLanguage, setTargetLanguage] = useState("fr");
+  const [isSwitching, setIsSwitching] = useState(false);
 
   const pairsLanguages = [
     { code: "en", name: "English" },
@@ -18,6 +19,8 @@ function TranslateProvider({ children }) {
   ];
 
   useEffect(() => {
+    if (isSwitching) return;
+
     if (!input || input === "") {
       setTranslation("");
       return;
@@ -35,6 +38,17 @@ function TranslateProvider({ children }) {
     translate();
   }, [input, currentLanguage, targetLanguage]);
 
+  function handleSwitch() {
+    setIsSwitching(true);
+    setInput(translation);
+    setTranslation(input);
+    setCurrentLanguage(targetLanguage);
+    setTargetLanguage(currentLanguage);
+    setTimeout(() => {
+      setIsSwitching(false);
+    }, 0);
+  }
+
   return (
     <TranslatorContext.Provider
       value={{
@@ -45,6 +59,7 @@ function TranslateProvider({ children }) {
         targetLanguage,
         setCurrentLanguage,
         setTargetLanguage,
+        handleSwitch,
         pairsLanguages,
       }}
     >

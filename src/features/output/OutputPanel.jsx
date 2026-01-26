@@ -1,6 +1,7 @@
 import { useTranslator } from "../../context/TranslatorContext";
 import Panel from "../../ui/Panel";
 import LanguageSelector from "../Translator/LanguageSelector";
+import SwitchButton from "./SwitchButton";
 
 function OutputPanel() {
   const { translation, setTargetLanguage } = useTranslator();
@@ -8,7 +9,10 @@ function OutputPanel() {
 
   return (
     <Panel>
-      <LanguageSelector role="target" resolveLanguages={setTargetLanguage} />
+      <div className="alingit flex flex-row">
+        <SwitchButton />
+        <LanguageSelector role="target" resolveLanguages={setTargetLanguage} />
+      </div>
       <div
         className={`min-h-[7.5rem] flex-1 rounded-xl border p-4 ${
           isEmpty
