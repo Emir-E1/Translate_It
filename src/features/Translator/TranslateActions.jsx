@@ -1,8 +1,15 @@
+import CopyClip from "../../components/CopyClip";
 import { useTranslator } from "../../context/TranslatorContext";
-/*
-function TranslateActions({ input }) {
+import SwitchButton from "../output/SwitchButton";
+
+function TranslateActions({ text }) {
   const { handleTranslate } = useTranslator();
   return (
+    <>
+      <SwitchButton />
+      <CopyClip text={text} />
+    </>
+    /*
     <div className="pt-1">
       {input && (
         <button
@@ -13,9 +20,8 @@ function TranslateActions({ input }) {
           Translate it
         </button>
       )}
-    </div>
+    </div>*/
   );
 }
 
 export default TranslateActions;
-*/

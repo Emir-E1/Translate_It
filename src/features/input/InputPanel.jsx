@@ -1,7 +1,7 @@
 import { useTranslator } from "../../context/TranslatorContext";
 import Panel from "../../ui/Panel";
-import LanguageSelector from "../Translator/LanguageSelector";
-import Nls from "../Translator/Nls";
+
+import LanguagesSelector from "../Translator/LanguagesSelector";
 
 const MAX_LENGTH = 500;
 
@@ -14,7 +14,7 @@ function InputPanel() {
   };
   return (
     <Panel>
-      <Nls
+      <LanguagesSelector
         resolveLanguages={setCurrentLanguage}
         managedLanguage={currentLanguage}
       />

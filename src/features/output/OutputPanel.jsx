@@ -1,7 +1,8 @@
 import { useTranslator } from "../../context/TranslatorContext";
 import Panel from "../../ui/Panel";
-import LanguageSelector from "../Translator/LanguageSelector";
-import Nls from "../Translator/Nls";
+
+import LanguagesSelector from "../Translator/LanguagesSelector";
+import TranslateActions from "../Translator/TranslateActions";
 import SwitchButton from "./SwitchButton";
 
 function OutputPanel() {
@@ -10,9 +11,8 @@ function OutputPanel() {
 
   return (
     <Panel>
-      <div className="alingit flex flex-row">
-        <SwitchButton />
-        <Nls
+      <div className="flex flex-row">
+        <LanguagesSelector
           resolveLanguages={setTargetLanguage}
           managedLanguage={targetLanguage}
         />
@@ -26,6 +26,7 @@ function OutputPanel() {
       >
         {translation ?? "Translation…"}
       </div>
+      <TranslateActions text={translation} />
     </Panel>
   );
 }

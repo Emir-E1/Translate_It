@@ -25,10 +25,7 @@ function TranslateProvider({ children }) {
   ];
 
   useEffect(() => {
-    if (isSwitching) return;
-
-    if (!input || input === "") {
-      setTranslation("");
+    if (!input || !currentLanguage?.code || !targetLanguage?.code) {
       return;
     }
 
@@ -42,14 +39,14 @@ function TranslateProvider({ children }) {
     }
 
     translate();
-  }, [input, currentLanguage, targetLanguage]);
+  }, [input, currentLanguage?.code, targetLanguage?.code]);
 
   function handleSwitch() {
     setIsSwitching(true);
     setInput(translation);
     setTranslation(input);
-    setCurrentLanguage(targetLanguage);
-    setTargetLanguage(currentLanguage);
+    setCurrentLanguage({ ...targetLanguage });
+    setTargetLanguage({ ...currentLanguage });
     setTimeout(() => {
       setIsSwitching(false);
     }, 0);
