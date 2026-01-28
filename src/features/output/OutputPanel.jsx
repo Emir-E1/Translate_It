@@ -11,11 +11,12 @@ function OutputPanel() {
 
   return (
     <Panel>
-      <div className="flex flex-row">
+      <div className="flex flex-row justify-between border-b border-white/10 p-1">
         <LanguagesSelector
           resolveLanguages={setTargetLanguage}
           managedLanguage={targetLanguage}
         />
+        <SwitchButton />
       </div>
       <div
         className={`min-h-[7.5rem] flex-1 rounded-xl border p-4 ${
@@ -26,7 +27,7 @@ function OutputPanel() {
       >
         {translation ?? "Translation…"}
       </div>
-      <TranslateActions text={translation} />
+      <TranslateActions text={translation} role={"target"} />
     </Panel>
   );
 }

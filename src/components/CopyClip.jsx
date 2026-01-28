@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslator } from "../context/TranslatorContext";
+import { Copy } from "lucide-react";
+import Button from "../ui/Button";
 
 function CopyClip({ text }) {
   const [copied, setCopied] = useState(false);
@@ -18,12 +20,13 @@ function CopyClip({ text }) {
 
   return (
     <div>
-      <button
-        className="rounded-xl bg-cyan-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-cyan-600/25 transition-all duration-200 hover:bg-cyan-500 hover:shadow-cyan-500/30 active:scale-[0.98]"
-        onClick={handleCopy}
-      >
-        {copied ? "Copied !" : "Copy Your Text !"}
-      </button>
+      <Button onClick={handleCopy}>
+        {copied ? (
+          <Copy color="#4D5562" size={16} />
+        ) : (
+          <Copy color="#4D5562" size={16} />
+        )}
+      </Button>
     </div>
   );
 }

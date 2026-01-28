@@ -2,6 +2,8 @@ import { useTranslator } from "../../context/TranslatorContext";
 import Panel from "../../ui/Panel";
 
 import LanguagesSelector from "../Translator/LanguagesSelector";
+import TranslateActions from "../Translator/TranslateActions";
+import DetectLanguage from "./DetectLanguage";
 
 const MAX_LENGTH = 500;
 
@@ -13,12 +15,14 @@ function InputPanel() {
     setInput(input);
   };
   return (
-    <Panel>
-      <LanguagesSelector
-        resolveLanguages={setCurrentLanguage}
-        managedLanguage={currentLanguage}
-      />
-
+    <Panel type={"source"}>
+      <div className="flex flex-row justify-between border-b border-white/10 p-1">
+        <DetectLanguage input={input} />
+        <LanguagesSelector
+          resolveLanguages={setCurrentLanguage}
+          managedLanguage={currentLanguage}
+        />
+      </div>
       <div className="relative flex-1">
         <textarea
           className="h-32 min-h-[7.5rem] w-full resize-none rounded-xl border border-white/5 bg-white/5 p-4 pb-9 pr-20 text-white placeholder-gray-500 outline-none transition placeholder:transition focus:border-cyan-500/50 focus:bg-white/[0.07] focus:ring-2 focus:ring-cyan-500/20"
@@ -36,6 +40,7 @@ function InputPanel() {
           </span>
         </div>
       </div>
+      <TranslateActions text={input} />
     </Panel>
   );
 }
