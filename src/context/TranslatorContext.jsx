@@ -86,20 +86,28 @@ function TranslateProvider({ children }) {
   const [currentLanguage, setCurrentLanguage] = useState(PAIRS_BY_CODE["en"]);
   const [targetLanguage, setTargetLanguage] = useState(PAIRS_BY_CODE["fr"]);
   const [isSwitching, setIsSwitching] = useState(false);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     if (!input || !currentLanguage?.code || !targetLanguage?.code) return;
 
     async function translate() {
-      const result = await getTranslation(
-        input,
-        currentLanguage,
-        targetLanguage,
-      );
-      setTranslation(result);
+      try {
+        setIsTranslating(true);
+        const result = await getTranslation(
+          input,
+          currentLanguage,
+          targetLanguage,
+        );
+        setTranslation(result ?? "");
+      } finally {
+        setIsTranslating(false);
+      }
     }
 
     translate();
+    // we deliberately only depend on the language codes, not the whole objects
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input, currentLanguage?.code, targetLanguage?.code]);
 
   function handleSwitch() {
@@ -134,6 +142,7 @@ function TranslateProvider({ children }) {
         handleDetect,
         pairsLanguages: pairsLanguagesFull,
         isSwitching,
+        isTranslating,
       }}
     >
       {children}

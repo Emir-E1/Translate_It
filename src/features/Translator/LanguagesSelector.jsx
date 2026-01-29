@@ -39,11 +39,10 @@ function LanguagesSelector({ managedLanguage, resolveLanguages }) {
   return (
     <div className="flex w-full flex-wrap items-center gap-2">
       <select
-        className="rounded-md bg-gray-800 px-2 py-1 text-xs text-white outline-none focus:ring-2 focus:ring-cyan-500/20"
+        className="rounded-md bg-gray-800 p-1 text-xs text-white outline-none focus:ring-2 focus:ring-cyan-500/20"
         value=""
         onChange={(e) => handleSelect(e.target.value)}
       >
-        <option value="">Select Language</option>
         {pairsLanguages.map((lang) => (
           <option key={lang.code} value={lang.code}>
             {lang.name}

@@ -16,12 +16,15 @@ function InputPanel() {
   };
   return (
     <Panel type={"source"}>
-      <div className="flex flex-row justify-between border-b border-white/10 p-1">
+      <div className="flex items-center gap-2 border-b border-white/10 p-1">
         <DetectLanguage input={input} />
-        <LanguagesSelector
-          resolveLanguages={setCurrentLanguage}
-          managedLanguage={currentLanguage}
-        />
+        <div className="min-w-0 flex-1">
+          <LanguagesSelector
+            resolveLanguages={setCurrentLanguage}
+            managedLanguage={currentLanguage}
+            noWrap
+          />
+        </div>
       </div>
       <div className="relative flex-1">
         <textarea

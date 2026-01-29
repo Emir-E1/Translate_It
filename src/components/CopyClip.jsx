@@ -21,11 +21,7 @@ function CopyClip({ text }) {
   return (
     <div>
       <Button onClick={handleCopy}>
-        {copied ? (
-          <Copy color="#4D5562" size={16} />
-        ) : (
-          <Copy color="#4D5562" size={16} />
-        )}
+        <Copy color={copied ? "#22c55e" : "#4D5562"} size={16} />
       </Button>
     </div>
   );

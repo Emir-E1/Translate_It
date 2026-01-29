@@ -2,10 +2,10 @@ import { useTranslator } from "../../context/TranslatorContext";
 import { ArrowLeftRight } from "lucide-react";
 import Button from "../../ui/Button";
 function SwitchButton() {
-  const { handleSwitch } = useTranslator();
+  const { handleSwitch, isSwitching, isTranslating } = useTranslator();
   return (
     <div>
-      <Button onClick={handleSwitch}>
+      <Button onClick={handleSwitch} disabled={isSwitching || isTranslating}>
         <ArrowLeftRight color="#4D5562" strokeWidth={1.75} size={16} />
       </Button>
     </div>
