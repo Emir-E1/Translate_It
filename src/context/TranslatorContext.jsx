@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getTranslation, autoDetect } from "../services/handleTranslation";
 import { franc } from "franc";
+import { useQuery } from "@tanstack/react-query";
 
 const pairsLanguagesFull = [
   { code: "en", name: "English" },
@@ -88,6 +89,28 @@ function TranslateProvider({ children }) {
   const [isSwitching, setIsSwitching] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
 
+  const {
+    data: translatedQ,
+    isLoading: isTranslatingQ,
+    error,
+  } = useQuery({
+    queryKey: [
+      "translation",
+      input,
+      currentLanguage?.code,
+      targetLanguage?.code,
+    ],
+    queryFn: ({ queryKey }) => {
+      const [, input, from, to] = queryKey;
+      return getTranslation(input, { code: from }, { code: to });
+    },
+    enabled: Boolean(input && currentLanguage?.code && targetLanguage?.code),
+  });
+  console.log(translatedQ);
+  useEffect(() => {
+    if (translatedQ !== undefined) setTranslation(translatedQ);
+  }, [translatedQ]);
+  /*
   useEffect(() => {
     if (!input || !currentLanguage?.code || !targetLanguage?.code) return;
 
@@ -106,10 +129,9 @@ function TranslateProvider({ children }) {
     }
 
     translate();
-    // we deliberately only depend on the language codes, not the whole objects
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [input, currentLanguage?.code, targetLanguage?.code]);
-
+*/
   function handleSwitch() {
     setIsSwitching(true);
     setInput(translation);
