@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslator } from "../context/TranslatorContext";
 import { Copy } from "lucide-react";
 import Button from "../ui/Button";
+import toast from "react-hot-toast";
 
 function CopyClip({ text }) {
   const [copied, setCopied] = useState(false);
@@ -10,8 +11,10 @@ function CopyClip({ text }) {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(true);
+      toast.success("Coppied !");
     } catch (error) {
       console.log(error);
+      toast.error("Error !");
     }
   }
   useEffect(() => {

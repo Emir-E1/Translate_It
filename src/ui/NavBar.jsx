@@ -14,7 +14,7 @@ function NavBar() {
 
         <div className="flex items-center gap-4">
           <NavLink
-            to="/"
+            to="/home"
             className={({ isActive }) =>
               [
                 "transition hover:text-cyan-300",
@@ -25,7 +25,7 @@ function NavBar() {
             Home
           </NavLink>
           <NavLink
-            to="/app"
+            to="/"
             className={({ isActive }) =>
               [
                 "rounded-md px-3 py-1 transition",
