@@ -6,8 +6,9 @@ function TranslateActions({ text }) {
   const { handleTranslate } = useTranslator();
   return (
     <div className="flex flex-row gap-4">
-      <CopyClip text={text} />
       <Transcript text={text} />
+
+      <CopyClip text={text} />
     </div>
   );
 }

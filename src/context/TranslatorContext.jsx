@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { getTranslation, autoDetect } from "../services/handleTranslation";
 import { franc } from "franc";
 import { useQuery } from "@tanstack/react-query";
@@ -83,16 +83,14 @@ const TranslatorContext = createContext();
 
 function TranslateProvider({ children }) {
   const [input, setInput] = useState("Hello");
-  const [translation, setTranslation] = useState("");
+  // const [translation, setTranslation] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState(PAIRS_BY_CODE["en"]);
   const [targetLanguage, setTargetLanguage] = useState(PAIRS_BY_CODE["fr"]);
   const [isSwitching, setIsSwitching] = useState(false);
-  const [isTranslating, setIsTranslating] = useState(false);
 
   const {
     data: translatedQ,
-    isLoading: isTranslatingQ,
-    error,
+    isLoading: isTranslating,
   } = useQuery({
     queryKey: [
       "translation",
@@ -106,36 +104,10 @@ function TranslateProvider({ children }) {
     },
     enabled: Boolean(input && currentLanguage?.code && targetLanguage?.code),
   });
-  console.log(translatedQ);
-  useEffect(() => {
-    if (translatedQ !== undefined) setTranslation(translatedQ);
-  }, [translatedQ]);
-  /*
-  useEffect(() => {
-    if (!input || !currentLanguage?.code || !targetLanguage?.code) return;
-
-    async function translate() {
-      try {
-        setIsTranslating(true);
-        const result = await getTranslation(
-          input,
-          currentLanguage,
-          targetLanguage,
-        );
-        setTranslation(result ?? "");
-      } finally {
-        setIsTranslating(false);
-      }
-    }
-
-    translate();
-   
-  }, [input, currentLanguage?.code, targetLanguage?.code]);
-*/
   function handleSwitch() {
     setIsSwitching(true);
-    setInput(translation);
-    setTranslation(input);
+    setInput(translatedQ ?? "");
+    //setTranslation(input);
     setCurrentLanguage({ ...targetLanguage });
     setTargetLanguage({ ...currentLanguage });
     setTimeout(() => setIsSwitching(false), 0);
@@ -155,7 +127,7 @@ function TranslateProvider({ children }) {
       value={{
         input,
         setInput,
-        translation,
+        translation: translatedQ,
         currentLanguage,
         targetLanguage,
         setCurrentLanguage,

@@ -1,6 +1,7 @@
 import Button from "../ui/Button";
 import { Volume2 } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function Transcript({ input }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -8,6 +9,7 @@ function Transcript({ input }) {
   function handlePlay() {
     if (!input) return;
     setIsPlaying(true);
+    toast("comming soon");
     // placeholder for TTS integration
     setTimeout(() => setIsPlaying(false), 600);
   }
