@@ -28,7 +28,7 @@ function InputPanel() {
       </div>
       <div className="relative flex-1">
         <textarea
-          className="h-32 min-h-[7.5rem] w-full resize-none rounded-xl border border-white/5 bg-white/5 p-4 pb-9 pr-20 text-white placeholder-gray-500 outline-none transition placeholder:transition focus:border-cyan-500/50 focus:bg-white/[0.07] focus:ring-2 focus:ring-cyan-500/20"
+          className="min-h-[7.5rem] w-full resize-none rounded-xl border border-white/5 bg-white/5 p-4 pb-9 pr-20 text-white placeholder-gray-500 outline-none transition placeholder:transition focus:border-cyan-500/50 focus:bg-white/[0.07] focus:ring-2 focus:ring-cyan-500/20"
           placeholder="Type your word here …"
           value={input}
           onChange={(e) => handleInput(e.target.value)}

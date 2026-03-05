@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { getTranslation, autoDetect } from "../services/handleTranslation";
 import { franc } from "franc";
 import { useQuery } from "@tanstack/react-query";
+import useDebounce from "../hooks/useDebounce";
 
 const pairsLanguagesFull = [
   { code: "en", name: "English" },
@@ -88,22 +89,21 @@ function TranslateProvider({ children }) {
   const [targetLanguage, setTargetLanguage] = useState(PAIRS_BY_CODE["fr"]);
   const [isSwitching, setIsSwitching] = useState(false);
 
-  const {
-    data: translatedQ,
-    isLoading: isTranslating,
-  } = useQuery({
+  const newInput = useDebounce(input);
+  const { data: translatedQ, isLoading: isTranslating } = useQuery({
     queryKey: [
       "translation",
-      input,
+      newInput,
       currentLanguage?.code,
       targetLanguage?.code,
     ],
     queryFn: ({ queryKey }) => {
-      const [, input, from, to] = queryKey;
-      return getTranslation(input, { code: from }, { code: to });
+      const [, newInput, from, to] = queryKey;
+      return getTranslation(newInput, { code: from }, { code: to });
     },
-    enabled: Boolean(input && currentLanguage?.code && targetLanguage?.code),
+    enabled: Boolean(newInput && currentLanguage?.code && targetLanguage?.code),
   });
+
   function handleSwitch() {
     setIsSwitching(true);
     setInput(translatedQ ?? "");

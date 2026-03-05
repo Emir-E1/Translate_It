@@ -1,19 +1,21 @@
 import { Outlet } from "react-router";
-import NavBar from "./NavBar";
+
 import Footer from "../components/Footer";
-
-function AppLayout() {
+import Header from "../components/Header";
+const AppLayout = () => {
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-slate-950 via-slate-900 to-black text-slate-50">
-      <NavBar />
-
+    <div className="flex min-h-screen flex-col bg-slate-800">
+      <header>
+        <Header />
+      </header>
       <main className="flex-1">
         <Outlet />
       </main>
-
-      <Footer />
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
-}
+};
 
 export default AppLayout;
