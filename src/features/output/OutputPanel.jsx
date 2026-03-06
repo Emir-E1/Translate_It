@@ -21,10 +21,10 @@ function OutputPanel() {
       </div>
       <div className="relative min-h-[7.5rem] flex-1">
         <div
-          className={`h-full w-full rounded-xl border p-4 ${
+          className={`h-full w-full rounded-xl p-4 ${
             isEmpty
-              ? "border-dashed border-white/10 bg-white/[0.03] text-gray-500"
-              : "border-white/5 bg-white/5 text-white"
+              ? "bg-transparent text-gray-500"
+              : "bg-transparent text-white"
           } ${isTranslating ? "opacity-60" : ""}`}
         >
           {translation ?? "Translation…"}

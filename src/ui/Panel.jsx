@@ -2,8 +2,8 @@ function Panel({ children, type }) {
   return (
     <div
       className={`flex flex-1 flex-col gap-4 rounded-2xl border border-white/10 ${
-        type === "source" ? "bg-slate-900/80" : "bg-slate-900/80"
-      } p-5 shadow-2xl shadow-black/40 backdrop-blur-xl transition-all duration-300 sm:min-w-[320px]`.trim()}
+        type === "source" ? "bg-[#212936CC]/80" : "bg-slate-900/80"
+      } sm:min-w-5xl p-5 shadow-2xl shadow-black/40 backdrop-blur-xl transition-all duration-300`.trim()}
     >
       {children}
     </div>

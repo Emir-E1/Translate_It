@@ -58,9 +58,9 @@ function LanguagesSelector({ managedLanguage, resolveLanguages }) {
               key={lang.code}
               type="button"
               onClick={() => handleBubbleClick(lang.code)}
-              className={`rounded-full px-2 py-1 text-xs font-medium transition-all ${
+              className={`rounded-xl p-2 text-xs font-medium transition-all ${
                 isActive
-                  ? "bg-cyan-600 text-white shadow-md shadow-cyan-600/25"
+                  ? "bg-white/25 text-white"
                   : "bg-white/10 text-gray-300 hover:bg-white/15 hover:text-white"
               }`}
             >
