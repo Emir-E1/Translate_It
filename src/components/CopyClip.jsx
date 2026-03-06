@@ -9,6 +9,10 @@ function CopyClip({ text }) {
   const { input, translation } = useTranslator();
   async function handleCopy() {
     try {
+      if (!input) {
+        toast.error("please type something");
+        return;
+      }
       await navigator.clipboard.writeText(text);
       setCopied(true);
       toast.success("Coppied !");
@@ -24,7 +28,7 @@ function CopyClip({ text }) {
   return (
     <div>
       <Button onClick={handleCopy}>
-        <Copy color={copied ? "#22c55e" : "#4D5562"} size={16} />
+        <Copy color={copied ? "#4D5564" : "#4D5562"} size={16} />
       </Button>
     </div>
   );
